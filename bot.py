@@ -17,10 +17,13 @@ def start(message):
 
 @bot.message_handler(func=lambda message: True)
 def forward_to_admin(message):
-    # Foydalanuvchi xabarini admin (sen) ga yuborish
-    bot.forward_message(ADMIN_ID, message.chat.id, message.message_id)
-    
-    # Foydalanuvchiga javob qaytarish
+    user = message.from_user
+    user_info = f"👤 Yangi xabar!\nID: {user.id}\nUsername: @{user.username}\n\n✉️ Xabar:\n{message.text}"
+
+    # Admin (senga lichkaga)
+    bot.send_message(ADMIN_ID, user_info)
+
+    # Foydalanuvchiga javob
     bot.send_message(message.chat.id, "Savolingiz qabul qilindi ✅ Javob kuting.")
 
 bot.infinity_polling()
